@@ -61,7 +61,7 @@ export default function SignUpPage(props) {
         <Header as="h2" color="teal" textAlign="center">
           Sign Up
         </Header>
-        <Form autoComplete="off" onSubmit={handleSubmit}>
+        <Form loading autoComplete="off" onSubmit={handleSubmit}>
           <Segment stacked>
             <Form.Input
               name="username"

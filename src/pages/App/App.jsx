@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
+import userService from "../../utils/userService";
+
 import "./App.css";
 import SignupPage from "../SignupPage/SignupPage";
 import LoginPage from "../LoginPage/LoginPage";
-import userService from "../../utils/userService";
+import FridgePage from "../FridgePage/FridgePage";
 import ProfilePage from "../ProfilePage/ProfilePage";
 import PageHeader from "../../components/Header/Header";
 
@@ -31,7 +33,7 @@ function App() {
       <>
         <PageHeader user={user} handleLogout={handleLogout}/>
         <Routes>
-          <Route path="/" element={<h1>This is Home Page!</h1>} />
+          <Route path="/" element={<FridgePage />} />
           <Route
             path="/login"
             element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />}
@@ -50,7 +52,7 @@ function App() {
     <>
       <PageHeader />
       <Routes>
-        <Route path="/" element={<h1>This is Home Page!</h1>} />
+        <Route path="/" element={<FridgePage />} />
         <Route
           path="/login"
           element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />}
