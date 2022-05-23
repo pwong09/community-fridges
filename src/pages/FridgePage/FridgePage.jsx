@@ -32,11 +32,13 @@ export default function FridgePage({user}) {
         }
     }
 
+
     return (
         <Grid centered>
             <Grid.Row>
                 {user ? 
                 <AddFridgeForm handleAddFridge={handleAddFridge} />
+
                 : null}
             </Grid.Row>
             <Grid.Row>

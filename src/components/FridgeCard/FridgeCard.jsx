@@ -13,7 +13,7 @@ export default function FridgeCard({fridge}) {
                 </Card.Description>
             </Card.Content>
             <Card.Content extra>
-                <Button basic color="green">Donate</Button>
+                <Button as='a' href="https://www.google.com" target="_blank" basic color="green">Donate</Button>
                 <Button basic color="blue">More Info</Button>
             </Card.Content>
         </Card>
