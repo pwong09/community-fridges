@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Button, Form, Segment, Checkbox, Select } from 'semantic-ui-react';
-
+import { Button, Form, Segment } from 'semantic-ui-react';
 import options from "../data/data";
+
 
 export default function AddFridgeForm(props) {
     const [selectedFile, setSelectedFile] = useState('');
@@ -42,7 +42,7 @@ export default function AddFridgeForm(props) {
 
     return (
         <Form autoComplete="off" onSubmit={handleSubmit} >
-        <Segment stacked>
+        <Segment>
                 <Form.Input 
                     className="form-control"
                     type='text'

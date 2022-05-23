@@ -5,7 +5,8 @@ const s3 = new S3(); // initialize the constructor
 
 module.exports = {
     create,
-    index
+    index,
+    delete: removeFridge
 }
 
 function create(req, res){
@@ -46,6 +47,16 @@ async function index(req, res){
         res.status(200).json({fridges})
     } catch(err){
         console.log(err, "from index fridges controller");
+        res.json(err);
+    }
+}
+
+async function removeFridge(req, res) {
+    try {
+        await Fridge.findByIdAndDelete(req.params.id).exec()
+        res.status(200).json()
+    } catch(err) {
+        console.log(err, "from removeFridge controller")
         res.json(err);
     }
 }
