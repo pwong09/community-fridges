@@ -2,15 +2,10 @@ const mongoose = require('mongoose');
 
 const fridgeSchema = new mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+    owner: { type: String},
     streetAddress: { type: String, required: true },
-    state: { type: String, required: true },
-    operatingHours: {type: [{
-        day: {type: Date}, //mon - sun
-        periods: [{
-            start: {type: Date},
-            end: {type: Date}
-            }]
-        }], default: '24 hours, 7 days a week'},
+    stateOrProvince: { type: String, required: true },
+    country: String,
     donationLink: String,
     imageUrl: String,
     isStocked: Boolean,
