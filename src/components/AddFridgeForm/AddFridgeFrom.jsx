@@ -5,13 +5,20 @@ import options from "../data/data";
 
 export default function AddFridgeForm(props) {
     const [selectedFile, setSelectedFile] = useState('');
-    const [state, setState] = useState({});
+    // const [invert, setInvert] = useState(false);
+    const [state, setState] = useState({
+        owner: '',
+        streetAddress: '',
+        stateOrProvince: '',
+        country: '',
+        donationUrl: '',
+    });
 
     function handleFileInput(e) {
         setSelectedFile(e.target.files[0]);
     }
 
-    // const handleSelect = (e, { value }) => this.setState({ value })
+    const handleSelect = (e, value ) => setState({ ...state, [value.name]: value.value })
 
     function handleChange(e) {
         setState({
@@ -22,99 +29,108 @@ export default function AddFridgeForm(props) {
 
     function handleSubmit(e) {
         e.preventDefault();
-
+        console.log(state);
         const formData = new FormData();
         formData.append('photo', selectedFile);
-        formData.append('caption', state.caption);
+        
+        for (let fieldName in state) {
+            console.log('fieldname log', fieldName, state[fieldName]);
+            formData.append(fieldName, state[fieldName]);
+        }
         props.handleAddFridge(formData);
     }
 
     return (
-        <Segment inverted>
-            <Form inverted autoComplete="off" onSubmit={handleSubmit} >
+        <Form autoComplete="off" onSubmit={handleSubmit} >
+        <Segment stacked>
                 <Form.Input 
+                    className="form-control"
+                    type='text'
                     label='Organizer(s)'
                     placeholder='organizer(s) / group' 
                     name='owner'
                     value={state.owner}
+                    onChange={handleChange}
                 />
                 <Form.Input 
-                    fluid 
+                    className="form-control"
+                    type='text'
                     label='Street Address' 
                     placeholder='street address'
                     name='streetAddress'
                     value={state.streetAddress}
+                    onChange={handleChange}
+                    required
                 />
                 <Form.Group>
-                    <Form.Field
-                        control={Select}
+                    <Form.Select
                         fluid
                         label='State or Province'
                         placeholder='state or province'
                         options={options}
                         name='stateOrProvince'
-                        value={state.stateOrProvince}
+                        onChange={handleSelect}
+                        required
                         />
-                    <Form.Field 
-                        control={Select}
+                    <Form.Select
                         fluid
                         label='Country'
                         placeholder='country'
                         name='country'
-                        value={state.country}
                         options={[
                             {key: 'CA', text: 'Canada', value: 'Canada'},
                             {key: 'US', text: 'USA', value: 'USA'}
                         ]}
+                        onChange={handleSelect}
                     />
                     <Form.Input
                         label='Donation Link'
                         placeholder='donation link'
-                        name='donationLink'
-                        value={state.donationLink}
+                        name='donationUrl'
+                        value={state.donationUrl}
+                        onChange={handleChange}
                     />
                 </Form.Group>
                 <br />
-                <Form.Group inline>
+                {/* <Form.Group inline>
                 <label>Does your fridge have...</label>
-                <Form.Field
-                control={Checkbox}
+                <Form.Checkbox
                 label='Fridge'
                 name='hasFridge'
-                value={state.hasFridge}
+                onChange={() => {
+                    setInvert(!invert)
+                }}
+                checked={invert}
                 />
-                <Form.Field
-                control={Checkbox}
+                <Form.Checkbox
                 label='Pantry Space'
                 name='hasPantry'
-                value={state.hasPantry}
                 />
-                <Form.Field
-                control={Checkbox}
+                <Form.Checkbox
                 label='Freezer Space'
                 name='hasFreezer'
-                value={state.hasPantry}
                 />
-                </Form.Group>
+                </Form.Group> */}
                 <Form.Group>
-                    <label>Share an image of your fridge!</label>
                     <Form.Input
+                    label='Share an image of your fridge!'
                     className="form-control"
                     type="file"
                     name="photo"
                     placeholder="upload image"
                     onChange={handleFileInput}
+                    required
                     />  
                 </Form.Group>
                 <br />
                 <Button 
                     type="submit" 
                     className="btn"
-                    color="primary"
+                    color="blue"
                 >
                     Add Fridge
                 </Button>
+                </Segment>
             </Form>
-        </Segment>
     )
 }

@@ -17,19 +17,17 @@ function create(req, res){
 			console.log(err, ' from aws')
             const fridge = await Fridge.create({
                 user: req.user,
-                streetAddress: req.body.address,
-                state: req.body.state,
-                operatingHours: req.body.hours,
-                donationLink: req.body.donation,
+                streetAddress: req.body.streetAddress,
+                stateOrProvince: req.body.stateOrProvince,
+                donationUrl: req.body.donationUrl,
                 imageUrl: data.Location,
-                isStocked: req.body.stocked,
-                hasFridge: req.body.fridge,
-                hasPantry: req.body.pantry,
-                hasFreezer: req.body.freezer
+                // isStocked: req.body.stocked,
+                // hasFridge: req.body.fridge,
+                // hasPantry: req.body.pantry,
+                // hasFreezer: req.body.freezer
             });
-            console.log(fridge)
+            console.log(fridge);
 			await fridge.populate('user');
-		
             res.status(201).json({fridge: fridge})
         })
 
@@ -44,7 +42,7 @@ async function index(req, res){
         // this populates the user when you find the posts
         // so you'll have access to the users information 
         // when you fetch teh posts
-        const fridges = await Fridge.find({}).populate('user').exec()
+        const fridges = await Fridge.find({}).exec()
         res.status(200).json({fridges})
     } catch(err){
         console.log(err, "from index fridges controller");

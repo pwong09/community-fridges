@@ -52,7 +52,7 @@ function App() {
     <>
       <PageHeader />
       <Routes>
-        <Route path="/" element={<FridgePage />} />
+        <Route path="/" element={<FridgePage user={user} />} />
         <Route
           path="/login"
           element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />}

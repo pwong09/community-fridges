@@ -47,7 +47,7 @@ export default function LoginPage(props) {
           <Header as="h2" color="teal" textAlign="center">
             Log-in to your account
           </Header>
-          <Form loading autoComplete="off" onSubmit={handleSubmit}>
+          <Form autoComplete="off" onSubmit={handleSubmit}>
             <Segment stacked>
               <Form.Input
                 type="email"

@@ -1,5 +1,4 @@
 const options = [
-    { key: '', text: 'State', value: ''},
     { key: 'AL', text: 'Alabama', value: 'Alabama'},
     { key: 'AK', text: 'Alaska', value: 'Alaska'},
     { key: 'AZ', text: 'Arizona', value: 'Arizona'},
@@ -50,7 +49,6 @@ const options = [
     { key: 'WV', text: 'West Virginia', value: 'West Virginia'},
     { key: 'WI', text: 'Wisconsin', value: 'Wisconsin'},
     { key: 'WY', text: 'Wyoming', value: 'Wyoming'},
-    { key: '', text: 'Province / Territory', value: ''},
     { key: 'AB', text: 'Alberta', value: 'Alberta'},
     { key: 'BC', text: 'British Columbia', value: 'British Columbia'},
     { key: 'MB', text: 'Manitoba', value: 'Manitoba'},

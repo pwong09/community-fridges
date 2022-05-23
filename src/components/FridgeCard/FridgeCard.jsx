@@ -1,10 +1,21 @@
 import React from "react";
-import { Card, Icon, Image } from 'semantic-ui-react'
+import { Card, Icon, Image, Button } from 'semantic-ui-react'
 
-export default function FridgeCard(props) {
+export default function FridgeCard({fridge}) {
     return (
         <Card>
-            <Card.Content>I am a fridge card!</Card.Content>
+            <Image src={fridge.imageUrl} wrapped ui={false} />
+            <Card.Content>
+                <Card.Description>
+                {fridge.streetAddress}
+                <br />
+                {fridge.stateOrProvince}, {fridge.country}
+                </Card.Description>
+            </Card.Content>
+            <Card.Content extra>
+                <Button basic color="green">Donate</Button>
+                <Button basic color="blue">More Info</Button>
+            </Card.Content>
         </Card>
     )
 }
