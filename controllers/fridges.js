@@ -53,8 +53,8 @@ async function index(req, res){
 
 async function removeFridge(req, res) {
     try {
-        await Fridge.findByIdAndDelete(req.params.id).exec()
-        res.status(200).json()
+        const fridge = await Fridge.findByIdAndDelete(req.params.id)
+        res.status(200).json({fridge})
     } catch(err) {
         console.log(err, "from removeFridge controller")
         res.json(err);

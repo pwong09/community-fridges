@@ -1,22 +1,16 @@
-import React, {useState, useEffect, Component} from "react";
+import React, {useState, useEffect} from "react";
+import { Grid } from 'semantic-ui-react';
 import FridgeGallery from "../../components/FridgeGallery/FridgeGallery";
 import AddFridgeForm from "../../components/AddFridgeForm/AddFridgeForm";
 import Loading from "../../components/Loader/Loader";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import Map from "../../components/Maps/Map";
-
-import { Grid } from 'semantic-ui-react';
-
 import * as fridgesAPI from "../../utils/fridgeApi";
-
-
 
 export default function FridgePage({user}) {
     const [fridges, setFridges] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
-
-    const key = process.env.REACT_APP_GOOGLE_EMBED_API;
 
     const location = {
         address: '1600 Amphitheatre Parkway, Mountain View, california.',
@@ -39,12 +33,14 @@ export default function FridgePage({user}) {
         getFridges();
     }, [])
 
+
     const handleAddFridge = async (fridge) => {
         try {
             const data = await fridgesAPI.create(fridge);
             setFridges(fridges => [data.fridge, ...fridges]);
             // console.log(fridges);
             setLoading(false);
+            getFridges();
         } catch(err) {
             console.log(err, 'from handleAddFridge');
             setError(err);
@@ -54,7 +50,8 @@ export default function FridgePage({user}) {
     const removeFridge = async (fridgeId) => {
         try {
             const data = await fridgesAPI.removeFridge(fridgeId);
-            getFridges();
+            const fridgeArray = await fridges.filter(fridge => fridge._id !== fridgeId);
+            setFridges(fridgeArray);
         } catch(err) {
             console.log(err, "error from removeFridge")
             setError(err);
@@ -84,11 +81,6 @@ export default function FridgePage({user}) {
                 <AddFridgeForm handleAddFridge={handleAddFridge} />
                 : null}
             </Grid.Row>
-            {/* <Grid.Row>
-            <iframe title="googleMap" 
-            src={`https://www.google.com/maps/embed/v1/search?key=${key}&q=community+fridge+in+Vancouver`}
-            width="600" height="450" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
-            </Grid.Row> */}
             <Grid.Row>
                 <Map location={location} zoomLevel={11} />
             </Grid.Row>

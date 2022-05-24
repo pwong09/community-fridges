@@ -22,7 +22,7 @@ export function getAll() {
 }
 
 export function removeFridge(id) {
-    return fetch(`${BASE_URL}/${id}`, {
+    return fetch(`${BASE_URL}${id}`, {
         method: 'DELETE',
         headers: {
             'Authorization': 'Bearer ' + tokenService.getToken()
