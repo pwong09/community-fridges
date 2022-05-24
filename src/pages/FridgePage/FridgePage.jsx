@@ -1,12 +1,15 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, Component} from "react";
 import FridgeGallery from "../../components/FridgeGallery/FridgeGallery";
 import AddFridgeForm from "../../components/AddFridgeForm/AddFridgeForm";
 import Loading from "../../components/Loader/Loader";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
+import Map from "../../components/Maps/Map";
 
 import { Grid } from 'semantic-ui-react';
 
 import * as fridgesAPI from "../../utils/fridgeApi";
+
+
 
 export default function FridgePage({user}) {
     const [fridges, setFridges] = useState([]);
@@ -14,15 +17,13 @@ export default function FridgePage({user}) {
     const [error, setError] = useState('');
 
     const key = process.env.REACT_APP_GOOGLE_EMBED_API;
-    // let map;
 
-    // function initMap() {
-    //     map = new google.maps.Map(document.getElementById("map"), {
-    //     center: { lat: -34.397, lng: 150.644 },
-    //     zoom: 8,
-    //     });
-    // }
-    
+    const location = {
+        address: '1600 Amphitheatre Parkway, Mountain View, california.',
+        lat: 37.42216,
+        lng: -122.08427,
+    }
+
     const getFridges = async () => {
         try {
             const data = await fridgesAPI.getAll();
@@ -36,7 +37,6 @@ export default function FridgePage({user}) {
 
     useEffect(() => {
         getFridges();
-        initMap();
     }, [])
 
     const handleAddFridge = async (fridge) => {
@@ -84,13 +84,13 @@ export default function FridgePage({user}) {
                 <AddFridgeForm handleAddFridge={handleAddFridge} />
                 : null}
             </Grid.Row>
-            <Grid.Row>
+            {/* <Grid.Row>
             <iframe title="googleMap" 
             src={`https://www.google.com/maps/embed/v1/search?key=${key}&q=community+fridge+in+Vancouver`}
             width="600" height="450" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
-            </Grid.Row>
+            </Grid.Row> */}
             <Grid.Row>
-                <div id='map'></div>
+                <Map location={location} zoomLevel={11} />
             </Grid.Row>
             <Grid.Row>
                 <Grid.Column>
