@@ -2,9 +2,18 @@ import React from "react";
 import GoogleMapReact from 'google-map-react';
 import LocationPin from "./LocationPin";
 
-const apiKey = process.env.REACT_APP_MAPS_API
+
 
 export default function Map({ location, zoomLevel }) {
+    const apiKey = process.env.REACT_APP_MAPS_API
+    const defaultProps = {
+        center: {
+            lat: 40.730610,
+            lng: -73.935242
+        },
+        zoom: 9
+    }
+        
     return (
     <div className="map">
         <h2 className="map-h2">Vist Google's Campus</h2>
@@ -13,13 +22,18 @@ export default function Map({ location, zoomLevel }) {
             <GoogleMapReact
                 // object that holds API key
                 bootstrapURLKeys={{ key: apiKey }}
-                defaultCenter={location}
-                defaultZoom={zoomLevel}
+                defaultCenter={defaultProps.center}
+                defaultZoom={defaultProps.zoom}
             >
             <LocationPin
-                lat={location.lat}
-                lng={location.lng}
-                text={location.address}
+                lat={40.7413283}
+                lng={-74.0333512}
+                text={'willow'}
+            />
+            <LocationPin 
+                lat={40.74444769999}
+                lng={-73.7547925}
+                text={'springfield'}
             />
             </GoogleMapReact>
         </div>

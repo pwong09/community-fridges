@@ -14,8 +14,8 @@ const fridgeSchema = new mongoose.Schema({
     hasFridge: Boolean,
     hasPantry: Boolean,
     hasFreezer: Boolean,
-    lat: String,
-    lng: String
+    lat: Number,
+    lng: Number
 },
     { timestamps: true }
 )

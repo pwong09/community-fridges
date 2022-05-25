@@ -11,29 +11,6 @@ export default function FridgesPage({user}) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
 
-    const location = {
-        address: '1600 Amphitheatre Parkway',
-        lat: 37.42216,
-        lng: -122.08427,
-    }
-
-    // https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=YOUR_API_KEY
-
-    const getLocation = async () => {
-        const key = process.env.REACT_APP_GEO_API
-        try {
-            const res = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${location.address}&key=${key}`)
-            console.log(res)
-            const data = await res.json();
-            console.log(data.results[0].geometry.location) // <-- returns object with lat and lng properties
-        } catch(err) {
-            console.log(err, 'from getLocation')
-            setError(err);
-        }
-    }
-
-    // getLocation();
-
     const getFridges = async () => {
         try {
             const data = await fridgesAPI.getAll();
@@ -48,20 +25,6 @@ export default function FridgesPage({user}) {
     useEffect(() => {
         getFridges();
     }, [])
-
-
-    const handleAddFridge = async (fridge) => {
-        try {
-            const data = await fridgesAPI.create(fridge);
-            setFridges(fridges => [data.fridge, ...fridges]);
-            // console.log(fridges);
-            setLoading(false);
-            getFridges();
-        } catch(err) {
-            console.log(err, 'from handleAddFridge');
-            setError(err);
-        }
-    }
 
     const removeFridge = async (fridgeId) => {
         try {
@@ -99,8 +62,7 @@ export default function FridgesPage({user}) {
             </Grid.Row> */}
             <Grid.Row>
                 <Map 
-                    location={location} 
-                    zoomLevel={11}
+                    fridges={fridges}
                 />
             </Grid.Row>
             <Grid.Row>
