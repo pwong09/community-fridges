@@ -5,7 +5,7 @@ import options from "../data/data";
 
 export default function AddFridgeForm(props) {
     const [selectedFile, setSelectedFile] = useState('');
-    // const [invert, setInvert] = useState(false);
+    const [invert, setInvert] = useState(false);
     const [state, setState] = useState({
         name: '',
         owner: '',
@@ -14,8 +14,9 @@ export default function AddFridgeForm(props) {
         city: '',
         country: '',
         donationUrl: '',
-        // lat: '',
-        // lng: ''
+        hasFridge: false,
+        hasPantry: false,
+        hasFreezer: false
     });
 
     function handleFileInput(e) {
@@ -31,17 +32,22 @@ export default function AddFridgeForm(props) {
         })
     }
 
+    const handleCheck = (e, data) => { 
+        console.log(data);
+        const value = data.type === "checkbox" ? data.checked : data.value;
+        const name = data.name;
+
+        console.log(value);
+        console.log(name);
+
+        setState({
+            [name]: value
+        });
+    }
+
 
     function handleSubmit(e) {
         e.preventDefault();
-        // const address = state.streetAddress + state.city + state.stateOrProvince
-        // const key = process.env.REACT_APP_GEO_API
-        // const res = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${key}`)
-        // const data = await res.json();
-        // // console.log(data.results[0].geometry.location.lat.toString()) // <-- returns object with lat and lng properties
-        // const latX = data.results[0].geometry.location.lat.toString();
-        // const lngY = data.results[0].geometry.location.lng.toString();
-        
             try {
                 const formData = new FormData();
                 formData.append('photo', selectedFile);
@@ -128,25 +134,29 @@ export default function AddFridgeForm(props) {
                         onChange={handleChange}
                     />
                 <br />
-                {/* <Form.Group inline>
+                <Form.Group inline>
                 <label>Does your fridge have...</label>
                 <Form.Checkbox
-                label='Fridge'
-                name='hasFridge'
-                onChange={() => {
-                    setInvert(!invert)
-                }}
-                checked={invert}
+                    label='Fridge'
+                    name='hasFridge'
+                    type='checkbox'
+                    value={state.hasFridge}
+                    onChange={handleCheck}
+                    defaultChecked
                 />
                 <Form.Checkbox
                 label='Pantry Space'
                 name='hasPantry'
+                value={state.hasPantry}
+                onChange={handleCheck}
                 />
                 <Form.Checkbox
                 label='Freezer Space'
                 name='hasFreezer'
+                value={state.hasFreezer}
+                onChange={handleCheck}
                 />
-                </Form.Group> */}
+                </Form.Group>
                 <Form.Group>
                     <Form.Input
                     label='Share an image of your fridge! Must be in jpg format.'

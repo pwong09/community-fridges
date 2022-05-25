@@ -55,11 +55,6 @@ export default function FridgesPage({user}) {
 
     return (
         <Grid centered>
-            {/* <Grid.Row>
-                {user ? 
-                <AddFridgeForm handleAddFridge={handleAddFridge} />
-                : null}
-            </Grid.Row> */}
             <Grid.Row>
                 <Map 
                     fridges={fridges}

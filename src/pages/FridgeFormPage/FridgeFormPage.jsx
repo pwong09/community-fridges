@@ -9,7 +9,6 @@ import * as fridgesAPI from "../../utils/fridgeApi";
 
 export default function FridgeFormPage({user}) {
     const navigate = useNavigate();
-    const [fridges, setFridges] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
