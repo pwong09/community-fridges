@@ -7,9 +7,11 @@ export default function AddFridgeForm(props) {
     const [selectedFile, setSelectedFile] = useState('');
     // const [invert, setInvert] = useState(false);
     const [state, setState] = useState({
+        name: '',
         owner: '',
         streetAddress: '',
         stateOrProvince: '',
+        city: '',
         country: '',
         donationUrl: '',
     });
@@ -27,22 +29,35 @@ export default function AddFridgeForm(props) {
         })
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
-        console.log(state);
-        const formData = new FormData();
-        formData.append('photo', selectedFile);
-        
-        for (let fieldName in state) {
-            console.log('fieldname log', fieldName, state[fieldName]);
-            formData.append(fieldName, state[fieldName]);
+        try {
+            const formData = await new FormData();
+
+            formData.append('photo', selectedFile);
+            for (let fieldName in state) {
+                console.log('fieldname log', fieldName, state[fieldName]);
+                formData.append(fieldName, state[fieldName]);
+            }
+            props.handleAddFridge(formData);
+        } catch(err) {
+            console.log(err, 'from addFridgeForm handleSubmit')
         }
-        props.handleAddFridge(formData);
     }
 
     return (
         <Form autoComplete="off" onSubmit={handleSubmit} >
         <Segment>
+                <Form.Group>
+                <Form.Input 
+                    className="form-control"
+                    type='text'
+                    label='Fridge Name'
+                    placeholder='name of your fridge' 
+                    name='name'
+                    value={state.name}
+                    onChange={handleChange}
+                />
                 <Form.Input 
                     className="form-control"
                     type='text'
@@ -52,6 +67,7 @@ export default function AddFridgeForm(props) {
                     value={state.owner}
                     onChange={handleChange}
                 />
+                </Form.Group>
                 <Form.Input 
                     className="form-control"
                     type='text'
@@ -62,11 +78,21 @@ export default function AddFridgeForm(props) {
                     onChange={handleChange}
                     required
                 />
-                <Form.Group>
+                <Form.Group widths={2}>
+                    <Form.Input 
+                        className="form-control"
+                        type='text'
+                        label='City' 
+                        placeholder='city / town'
+                        name='city'
+                        value={state.city}
+                        onChange={handleChange}
+                        required
+                    />
                     <Form.Select
                         fluid
-                        label='State or Province'
-                        placeholder='state or province'
+                        label='State/Province'
+                        placeholder=''
                         options={options}
                         name='stateOrProvince'
                         onChange={handleSelect}
@@ -83,14 +109,14 @@ export default function AddFridgeForm(props) {
                         ]}
                         onChange={handleSelect}
                     />
-                    <Form.Input
+                </Form.Group>
+                <Form.Input
                         label='Donation Link'
-                        placeholder='donation link'
+                        placeholder='www.donate.com'
                         name='donationUrl'
                         value={state.donationUrl}
                         onChange={handleChange}
                     />
-                </Form.Group>
                 <br />
                 {/* <Form.Group inline>
                 <label>Does your fridge have...</label>
@@ -113,7 +139,7 @@ export default function AddFridgeForm(props) {
                 </Form.Group> */}
                 <Form.Group>
                     <Form.Input
-                    label='Share an image of your fridge!'
+                    label='Share an image of your fridge! Must be in jpg format.'
                     className="form-control"
                     type="file"
                     name="photo"

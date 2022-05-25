@@ -3,7 +3,7 @@ import tokenService from "./tokenService";
 const BASE_URL = "/api/fridges/";
 
 export function create(fridge) {
-    console.log(fridge)
+    // console.log(fridge.values(), "fridge.values from fridgeApi looks like this")
     return fetch(BASE_URL, {
         method: 'POST',
         body: fridge,

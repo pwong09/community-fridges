@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./LoginPage.css";
+import Loading from "../../components/Loader/Loader";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import userService from "../../utils/userService";
 import { useNavigate, Link } from "react-router-dom";
@@ -13,9 +14,10 @@ import {
 } from "semantic-ui-react";
 
 export default function LoginPage(props) {
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [state, setState] = useState({
-    email: "",
+    username: "",
     password: "",
   });
 
@@ -32,6 +34,7 @@ export default function LoginPage(props) {
     e.preventDefault();
 
     try {
+      setLoading(true);
       await userService.login(state);
       props.handleSignUpOrLogin();
       navigate("/");
@@ -39,6 +42,14 @@ export default function LoginPage(props) {
       setError(err.message);
     }
   }
+
+  if (loading) {
+    return (
+        <>
+            <Loading />
+        </>
+    )
+}
 
   return (
     <>
@@ -50,10 +61,10 @@ export default function LoginPage(props) {
           <Form autoComplete="off" onSubmit={handleSubmit}>
             <Segment stacked>
               <Form.Input
-                type="email"
-                name="email"
-                placeholder="email"
-                value={state.email}
+                type="text"
+                name="username"
+                placeholder="username"
+                value={state.username}
                 onChange={handleChange}
                 required
               />

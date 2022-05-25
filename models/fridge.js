@@ -2,16 +2,20 @@ const mongoose = require('mongoose');
 
 const fridgeSchema = new mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-    owner: { type: String},
-    streetAddress: { type: String },
-    stateOrProvince: { type: String},
-    country: {type: String},
-    donationUrl:  {type: String},
+    name: String,
+    owner: String,
+    streetAddress: String,
+    stateOrProvince: String,
+    city: String,
+    country: String,
+    donationUrl:  String,
     imageUrl: String,
     isStocked: Boolean,
     hasFridge: Boolean,
     hasPantry: Boolean,
-    hasFreezer: Boolean },
+    hasFreezer: Boolean,
+    geo: {type: Object}
+},
     { timestamps: true }
 )
 

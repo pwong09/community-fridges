@@ -5,8 +5,9 @@ import userService from "../../utils/userService";
 import "./App.css";
 import SignupPage from "../SignupPage/SignupPage";
 import LoginPage from "../LoginPage/LoginPage";
-import FridgePage from "../FridgePage/FridgePage";
+import FridgesPage from "../FridgesPage/FridgesPage";
 import ProfilePage from "../ProfilePage/ProfilePage";
+import FridgeFormPage from "../FridgeFormPage/FridgeFormPage";
 import PageHeader from "../../components/Header/Header";
 
 function App() {
@@ -33,7 +34,8 @@ function App() {
       <>
         <PageHeader user={user} handleLogout={handleLogout}/>
         <Routes>
-          <Route path="/" element={<FridgePage user={user} />} />
+          <Route path="/" element={<FridgesPage user={user} />} />
+          <Route path="/addfridge" element={<FridgeFormPage user={user} />} />
           <Route
             path="/login"
             element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />}
@@ -52,7 +54,7 @@ function App() {
     <>
       <PageHeader />
       <Routes>
-        <Route path="/" element={<FridgePage />} />
+        <Route path="/" element={<FridgesPage />} />
         <Route
           path="/login"
           element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />}

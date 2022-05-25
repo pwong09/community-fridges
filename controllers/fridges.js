@@ -22,6 +22,10 @@ function create(req, res){
                 stateOrProvince: req.body.stateOrProvince,
                 donationUrl: req.body.donationUrl,
                 imageUrl: data.Location,
+                country: req.body.country,
+                city: req.body.city,
+                lat: req.body.lat,
+                lng: req.body.lng
                 // isStocked: req.body.stocked,
                 // hasFridge: req.body.fridge,
                 // hasPantry: req.body.pantry,

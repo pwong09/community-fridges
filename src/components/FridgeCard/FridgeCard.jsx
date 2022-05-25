@@ -2,7 +2,7 @@ import React from "react";
 import { Card, Icon, Image, Button } from 'semantic-ui-react'
 
 export default function FridgeCard({fridge, removeFridge, user}) {
-    // console.log(fridge.user, 'FridgeCard')
+    // console.log(fridge, 'FridgeCard')
     let clickHandler = null;
     if (user) {
         clickHandler = fridge.user === user._id ? () => removeFridge(fridge._id) : null;
@@ -21,6 +21,8 @@ export default function FridgeCard({fridge, removeFridge, user}) {
                 {fridge.streetAddress}
                 <br />
                 {fridge.stateOrProvince}, {fridge.country}
+                <br/>
+                {fridge.lat} & {fridge.lng}
                 </Card.Description>
             </Card.Content>
             <Card.Content extra>

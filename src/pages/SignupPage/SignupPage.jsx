@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
+import Loading from "../../components/Loader/Loader";
 import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
 import userService from "../../utils/userService";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +9,7 @@ export default function SignUpPage(props) {
 
   const navigate = useNavigate()
 
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('')
   const [state, setState] = useState({
     username: '',
@@ -30,6 +32,7 @@ export default function SignUpPage(props) {
     // console.log(formData.forEach((item) => console.log(item))); // <- to look at the keys, you must forEach over it
 
     try {
+      setLoading(true);
       await userService.signup(formData) 
       // photo
       props.handleSignUpOrLogin();
@@ -54,6 +57,13 @@ export default function SignUpPage(props) {
     setSelectedFile(e.target.files[0]);
   }
 
+  if (loading) {
+    return (
+        <>
+            <Loading />
+        </>
+    )
+}
 
   return (
     <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
