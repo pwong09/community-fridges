@@ -14,6 +14,8 @@ export default function AddFridgeForm(props) {
         city: '',
         country: '',
         donationUrl: '',
+        lat: '',
+        lng: ''
     });
 
     function handleFileInput(e) {
@@ -31,9 +33,15 @@ export default function AddFridgeForm(props) {
 
     async function handleSubmit(e) {
         e.preventDefault();
+        const address = state.streetAddress + state.city + state.stateOrProvince
+        const key = process.env.REACT_APP_GEO_API
+        const res = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${key}`)
+        const data = await res.json();
+        console.log(data.results[0].geometry.location.lat.toString()) // <-- returns object with lat and lng properties
+        state['lat'] = data.results[0].geometry.location.lat.toString()
+        state['lng'] = data.results[0].geometry.location.lng.toString()
         try {
-            const formData = await new FormData();
-
+            const formData = new FormData();
             formData.append('photo', selectedFile);
             for (let fieldName in state) {
                 console.log('fieldname log', fieldName, state[fieldName]);
@@ -41,7 +49,7 @@ export default function AddFridgeForm(props) {
             }
             props.handleAddFridge(formData);
         } catch(err) {
-            console.log(err, 'from addFridgeForm handleSubmit')
+            console.log(err, "from adding formData to addFridgeForm handleSubmit")
         }
     }
 
