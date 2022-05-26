@@ -24,7 +24,8 @@ export default function FridgeGallery({
     })
 
     return (
-        <Card.Group centered itemsPerRow={itemsPerRow}>
+        <>
+        <Card.Group centered itemsPerRow={itemsPerRow} style={{ height: 500, width: 350}}>
         {loading ? (
             <Segment>
                 <Dimmer active inverted>
@@ -37,5 +38,6 @@ export default function FridgeGallery({
         ) : null}
             {list}
         </Card.Group>
+        </>
     )
 }

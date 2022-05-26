@@ -133,14 +133,14 @@ export default function AddFridgeForm(props) {
             </Form.Group>
             <Form.Input
                     label='Donation Link'
-                    placeholder='www.donate.com'
+                    placeholder='https://www.donate.com'
                     name='donationUrl'
                     value={state.donationUrl}
                     onChange={handleChange}
                 />
             <Form.Input
                     label='Website'
-                    placeholder='www.yourwebsite.com'
+                    placeholder='https://www.yourwebsite.com'
                     name='website'
                     value={state.website}
                     onChange={handleChange}

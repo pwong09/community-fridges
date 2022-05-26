@@ -74,16 +74,14 @@ export default function FridgesPage({user, location, locationError}) {
                 />
             </Grid.Row>
             <Grid.Row>
-                <Grid.Column>
                     <FridgeGallery 
                         fridges={fridges} 
                         removeFridge={removeFridge}
                         user={user}
                         loading={loading}
-                        itemsPerRow={2}
+                        itemsPerRow={1}
                         updateStock={updateStock}
                     />
-                </Grid.Column>
             </Grid.Row>
         </Grid>
     )
