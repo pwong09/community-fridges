@@ -17,7 +17,7 @@ export default function FridgeCard({
     });
 
     const commentsList = fridge.comments.map((comment, index) => {
-        console.log(typeof(comment.createdAt))
+        // console.log(typeof(comment.createdAt))
         let commentHandler = null;
         if (user) {
             commentHandler = comment.user === user._id ? () => removeComment(comment._id) : null;

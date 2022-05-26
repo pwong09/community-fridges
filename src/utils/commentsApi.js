@@ -4,7 +4,7 @@ const BASE_URL = "/api/";
 
 export function addComment(fridgeId, comment) {
     console.log(fridgeId, comment, "fridgesApi addComment");
-    console.log(typeof(comment))
+    //console.log(typeof(comment))
     return fetch(`${BASE_URL}/fridges/${fridgeId}/comments`, {
         method: 'POST',
         body: JSON.stringify(comment),
