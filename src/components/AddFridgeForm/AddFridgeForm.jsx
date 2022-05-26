@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Button, Form, Segment } from 'semantic-ui-react';
 import options from "../data/data";
 
 
 export default function AddFridgeForm(props) {
     const [selectedFile, setSelectedFile] = useState('');
-    const [invert, setInvert] = useState(false);
     const [state, setState] = useState({
         name: '',
         owner: '',
@@ -14,6 +13,7 @@ export default function AddFridgeForm(props) {
         city: '',
         country: '',
         donationUrl: '',
+        website: '',
         hasFridge: false,
         hasPantry: false,
         hasFreezer: false
@@ -33,14 +33,19 @@ export default function AddFridgeForm(props) {
     }
 
     const handleCheck = (e, data) => { 
-        console.log(data);
-        const value = data.type === "checkbox" ? data.checked : data.value;
+        // console.log(data.value);
+        // console.log(typeof(data.value))
+        let value;
+        if (data.value === 'false') {
+            value = true
+        } else {
+            value = false
+        }
         const name = data.name;
-
-        console.log(value);
-        console.log(name);
-
+        // console.log(value);
+        // console.log(name);
         setState({
+            ...state,
             [name]: value
         });
     }
@@ -64,7 +69,7 @@ export default function AddFridgeForm(props) {
     return (
         <Form autoComplete="off" onSubmit={handleSubmit} >
         <Segment>
-                <Form.Group>
+            <Form.Group>
                 <Form.Input 
                     className="form-control"
                     type='text'
@@ -83,81 +88,89 @@ export default function AddFridgeForm(props) {
                     value={state.owner}
                     onChange={handleChange}
                 />
-                </Form.Group>
+            </Form.Group>
+            <Form.Input 
+                className="form-control"
+                type='text'
+                label='Street Address' 
+                placeholder='street address'
+                name='streetAddress'
+                value={state.streetAddress}
+                onChange={handleChange}
+                required
+            />
+            <Form.Group widths={2}>
                 <Form.Input 
                     className="form-control"
                     type='text'
-                    label='Street Address' 
-                    placeholder='street address'
-                    name='streetAddress'
-                    value={state.streetAddress}
+                    label='City' 
+                    placeholder='city / town'
+                    name='city'
+                    value={state.city}
                     onChange={handleChange}
                     required
                 />
-                <Form.Group widths={2}>
-                    <Form.Input 
-                        className="form-control"
-                        type='text'
-                        label='City' 
-                        placeholder='city / town'
-                        name='city'
-                        value={state.city}
-                        onChange={handleChange}
-                        required
+                <Form.Select
+                    fluid
+                    label='State/Province'
+                    placeholder=''
+                    options={options}
+                    name='stateOrProvince'
+                    onChange={handleSelect}
+                    required
                     />
-                    <Form.Select
-                        fluid
-                        label='State/Province'
-                        placeholder=''
-                        options={options}
-                        name='stateOrProvince'
-                        onChange={handleSelect}
-                        required
-                        />
-                    <Form.Select
-                        fluid
-                        label='Country'
-                        placeholder='country'
-                        name='country'
-                        options={[
-                            {key: 'CA', text: 'Canada', value: 'Canada'},
-                            {key: 'US', text: 'USA', value: 'USA'}
-                        ]}
-                        onChange={handleSelect}
-                    />
-                </Form.Group>
-                <Form.Input
-                        label='Donation Link'
-                        placeholder='www.donate.com'
-                        name='donationUrl'
-                        value={state.donationUrl}
-                        onChange={handleChange}
-                    />
-                <br />
-                <Form.Group inline>
+                <Form.Select
+                    fluid
+                    label='Country'
+                    placeholder='country'
+                    name='country'
+                    options={[
+                        {key: 'CA', text: 'Canada', value: 'Canada'},
+                        {key: 'US', text: 'USA', value: 'USA'}
+                    ]}
+                    onChange={handleSelect}
+                />
+            </Form.Group>
+            <Form.Input
+                    label='Donation Link'
+                    placeholder='www.donate.com'
+                    name='donationUrl'
+                    value={state.donationUrl}
+                    onChange={handleChange}
+                />
+            <Form.Input
+                    label='Website'
+                    placeholder='www.yourwebsite.com'
+                    name='website'
+                    value={state.website}
+                    onChange={handleChange}
+            />
+            <br />
+            <Form.Group inline>
                 <label>Does your fridge have...</label>
-                <Form.Checkbox
+                <Form.Input
+                    type='checkbox'
                     label='Fridge'
                     name='hasFridge'
-                    type='checkbox'
                     value={state.hasFridge}
                     onChange={handleCheck}
-                    defaultChecked
                 />
-                <Form.Checkbox
-                label='Pantry Space'
-                name='hasPantry'
-                value={state.hasPantry}
-                onChange={handleCheck}
+                <Form.Input
+                    type='checkbox'
+                    label='Pantry Space'
+                    name='hasPantry'
+                    value={state.hasPantry}
+                    onChange={handleCheck}
                 />
-                <Form.Checkbox
-                label='Freezer Space'
-                name='hasFreezer'
-                value={state.hasFreezer}
-                onChange={handleCheck}
+                <Form.Input
+                    type='checkbox'
+                    label='Freezer Space'
+                    name='hasFreezer'
+                    value={state.hasFreezer}
+                    onChange={handleCheck}
                 />
-                </Form.Group>
-                <Form.Group>
+            </Form.Group>
+            <Form.Group>
                     <Form.Input
                     label='Share an image of your fridge! Must be in jpg format.'
                     className="form-control"
@@ -166,17 +179,13 @@ export default function AddFridgeForm(props) {
                     placeholder="upload image"
                     onChange={handleFileInput}
                     required
-                    />  
-                </Form.Group>
-                <br />
-                <Button 
-                    type="submit" 
-                    className="btn"
-                    color="blue"
-                >
-                    Add Fridge
-                </Button>
-                </Segment>
-            </Form>
+                />  
+            </Form.Group>
+            <br />
+            <Button type="submit" className="btn" color="blue">
+                Add Fridge
+            </Button>
+        </Segment>
+        </Form>
     )
 }

@@ -37,7 +37,7 @@ export default function Map({ fridges }) {
         
     return (
     <div className="map">
-        <h2 className="map-h2">Vist Google's Campus</h2>
+        <h2 className="map-h2">Fridges in NYC!</h2>
 
         <div className="google-map" style={{ height: '50vh', width: '50vh'}}>
             <GoogleMapReact

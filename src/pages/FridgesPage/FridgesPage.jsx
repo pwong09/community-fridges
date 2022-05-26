@@ -5,6 +5,7 @@ import Loading from "../../components/Loader/Loader";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import Map from "../../components/Maps/Map";
 import * as fridgesAPI from "../../utils/fridgeApi";
+import * as commentsAPI from "../../utils/commentsApi";
 
 export default function FridgesPage({user}) {
     const [fridges, setFridges] = useState([]);
@@ -33,6 +34,27 @@ export default function FridgesPage({user}) {
             setFridges(fridgeArray);
         } catch(err) {
             console.log(err, "error from removeFridge")
+            setError(err);
+        }
+    }
+
+    const updateStock = async (fridgeId, state) => {
+        try {
+            const data = await fridgesAPI.updateFridge(fridgeId, state)
+
+        } catch(err) {
+            console.log(err, "error from updateStock")
+            setError(err);
+        }
+    }
+
+    const handleNewComment = async (fridgeId, comment) => {
+        try {
+            const data = await commentsAPI.addComment(fridgeId, comment);
+            // some sort of rendering
+            getFridges();
+        } catch(err) {
+            console.log(err, "error from newComment");
             setError(err);
         }
     }
@@ -68,6 +90,8 @@ export default function FridgesPage({user}) {
                         user={user}
                         loading={loading}
                         itemsPerRow={2}
+                        updateStock={updateStock}
+                        handleNewComment={handleNewComment}
                     />
                 </Grid.Column>
             </Grid.Row>

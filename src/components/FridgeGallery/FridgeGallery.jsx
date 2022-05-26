@@ -3,7 +3,7 @@ import {Card, Segment, Dimmer, Image} from 'semantic-ui-react'
 import FridgeCard from "../../components/FridgeCard/FridgeCard";
 import Loading from "../../components/Loader/Loader";
 
-export default function FridgeGallery({fridges, removeFridge, user, loading, itemsPerRow}) {
+export default function FridgeGallery({updateStock, handleNewComment, fridges, removeFridge, user, loading, itemsPerRow}) {
 
     const list = fridges.map((fridge, index) => {
         return (
@@ -12,6 +12,8 @@ export default function FridgeGallery({fridges, removeFridge, user, loading, ite
             key={index}
             removeFridge={removeFridge}
             user={user}
+            updateStock={updateStock}
+            handleNewComment={handleNewComment}
             />
         )
     })

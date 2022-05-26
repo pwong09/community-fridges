@@ -8,4 +8,4 @@ Express
 Node.js
 Google-React-Map
 
-Third-Party APIs: Google Maps JavaScript API, Geolocation API
+Third-Party APIs: Google Maps JavaScript API, Geocoding API, Geolocation API

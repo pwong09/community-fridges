@@ -16,7 +16,7 @@ export function create(fridge) {
 
 export function getAll() {
     return fetch(BASE_URL, {
-
+        method: 'GET'
     })
     .then(res => res.json());
 }
@@ -30,3 +30,16 @@ export function removeFridge(id) {
     })
     .then(res => res.json());
 }
+
+export function updateFridge(id, stock) {
+    return fetch(`${BASE_URL}${id}`, {
+        method: 'PUT',
+        body: JSON.stringify(stock),
+        headers: {
+            'Authorization': 'Bearer ' + tokenService.getToken(),
+            "Content-Type": "application/json"
+        }
+    })
+    .then(res => res.json());
+}
+

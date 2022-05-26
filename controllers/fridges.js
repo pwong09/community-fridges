@@ -7,7 +7,8 @@ const request = require('request');
 module.exports = {
     create,
     index,
-    delete: removeFridge
+    delete: removeFridge,
+    update
 }
 
 async function create(req, res){
@@ -30,15 +31,17 @@ async function create(req, res){
                 streetAddress: req.body.streetAddress,
                 stateOrProvince: req.body.stateOrProvince,
                 donationUrl: req.body.donationUrl,
+                websiteUrl: req.body.website,
                 imageUrl: data.Location,
                 country: req.body.country,
                 city: req.body.city,
                 lat: latX,
-                lng: lngY
-                // isStocked: req.body.stocked,
-                // hasFridge: req.body.fridge,
-                // hasPantry: req.body.pantry,
-                // hasFreezer: req.body.freezer
+                lng: lngY,
+                isStocked: req.body.stocked,
+                hasFridge: req.body.hasFridge,
+                hasPantry: req.body.hasPantry,
+                hasFreezer: req.body.hasFreezer,
+                name: req.body.name
             });
             console.log(fridge);
 			await fridge.populate('user');
@@ -72,4 +75,11 @@ async function removeFridge(req, res) {
         console.log(err, "from removeFridge controller")
         res.json(err);
     }
+}
+
+function update(req, res) {
+    console.log(req.body, 'req.body')
+    // try {
+    //     const fridge = await Fridge.findOne()
+    // }
 }
