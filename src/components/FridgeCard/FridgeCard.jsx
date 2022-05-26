@@ -1,6 +1,5 @@
-import React, {useState} from "react";
-import { Card, Icon, Image, Button, Header, Form, Comment, Dropdown } from 'semantic-ui-react'
-
+import React, {useState, useEffect} from "react";
+import { Card, Icon, Image, Button, Header, Form, Comment } from 'semantic-ui-react'
 
 export default function FridgeCard({
     updateStock, 

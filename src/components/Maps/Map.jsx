@@ -4,7 +4,7 @@ import LocationPin from "./LocationPin";
 
 
 
-export default function Map({ fridges }) {
+export default function Map({ fridges, center, locationError }) {
     const apiKey = process.env.REACT_APP_MAPS_API
     const geoKey = process.env.REACT_APP_GEO_API
     const defaultProps = {
@@ -37,13 +37,13 @@ export default function Map({ fridges }) {
         
     return (
     <div className="map">
-        <h2 className="map-h2">Fridges in NYC!</h2>
+        <h2 className="map-h2">Fridges near you!</h2>
 
         <div className="google-map" style={{ height: '50vh', width: '50vh'}}>
             <GoogleMapReact
                 // object that holds API key
                 bootstrapURLKeys={{ key: apiKey }}
-                defaultCenter={defaultProps.center}
+                defaultCenter={center}
                 defaultZoom={defaultProps.zoom}
             >
             {locations}

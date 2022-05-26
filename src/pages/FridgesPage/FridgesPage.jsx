@@ -7,7 +7,7 @@ import Map from "../../components/Maps/Map";
 import * as fridgesAPI from "../../utils/fridgeApi";
 import * as commentsAPI from "../../utils/commentsApi";
 
-export default function FridgesPage({user}) {
+export default function FridgesPage({user, location, locationError}) {
     const [fridges, setFridges] = useState([]);
     const [comments, setComments] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -27,6 +27,20 @@ export default function FridgesPage({user}) {
     useEffect(() => {
         getFridges();
     }, [])
+
+    // useEffect(() => {
+    //     const getComments = async () => {
+    //         try {
+    //             const data = await commentsAPI.getAll();
+    //             setComments([...data.comments]);
+    //             setLoading(false);
+    //         } catch(err) {
+    //             console.log(err, 'getting comments to re-render')
+    //             setError(err);
+    //         }
+    //     }
+    //     getComments();
+    // }, [setComments])
 
     const removeFridge = async (fridgeId) => {
         try {
@@ -92,6 +106,8 @@ export default function FridgesPage({user}) {
             <Grid.Row>
                 <Map 
                     fridges={fridges}
+                    center={location}
+                    locationError={locationError}
                 />
             </Grid.Row>
             <Grid.Row>

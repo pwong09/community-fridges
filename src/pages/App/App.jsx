@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import userService from "../../utils/userService";
+import useCurrentLocation from "../../hooks/useCurrentLocation";
 
 import "./App.css";
 import SignupPage from "../SignupPage/SignupPage";
@@ -12,8 +13,13 @@ import PageHeader from "../../components/Header/Header";
 
 function App() {
   const [user, setUser] = useState(userService.getUser()); // getUser decodes our JWT token, into a javascript object
-  // this object corresponds to the jwt payload which is defined in the server signup or login function that looks like
-  // this  const token = createJWT(user); // where user was the document we created from mongo
+
+  const geolocationOptions = {
+    enableHighAccuracy: true,
+    timeout: 1000 * 60 * 1, // 1 min (1000 ms * 60 sec * 1 minute = 60 000ms)
+    maximumAge: 1000 * 3600 * 24, // 24 hour
+  };
+  const { location: currentLocation, error: currentError } = useCurrentLocation(geolocationOptions);
 
   function handleSignUpOrLogin() {
     setUser(userService.getUser()); // getting the user from localstorage decoding the jwt
@@ -34,7 +40,7 @@ function App() {
       <>
         <PageHeader user={user} handleLogout={handleLogout}/>
         <Routes>
-          <Route path="/" element={<FridgesPage user={user} />} />
+          <Route path="/" element={<FridgesPage user={user} location={currentLocation} locationError={currentError} />} />
           <Route path="/addfridge" element={<FridgeFormPage user={user} />} />
           <Route
             path="/login"
@@ -54,7 +60,7 @@ function App() {
     <>
       <PageHeader />
       <Routes>
-        <Route path="/" element={<FridgesPage />} />
+        <Route path="/" element={<FridgesPage location={currentLocation} locationError={currentError} />} />
         <Route
           path="/login"
           element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />}

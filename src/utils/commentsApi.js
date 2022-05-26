@@ -27,8 +27,7 @@ export function removeComment(id) {
 }
 
 export function getAll(id) {
-    return fetch(`${BASE_URL}/${id}/comments`, {
-        method: 'GET'
+    return fetch(`${BASE_URL}fridges/${id}/comments`, {
     })
     .then(res => res.json());
 }

@@ -2,7 +2,8 @@ const Fridge = require("../models/fridge");
 
 module.exports = {
     create,
-    delete: deleteComment
+    delete: deleteComment,
+    index
 }
 
 function create(req, res){
@@ -35,4 +36,14 @@ async function deleteComment(req, res){
     //     console.log(err)
     // }
     console.log("deleting a comment")
+}
+
+async function index(req, res){
+    try {
+        const fridges = await Fridge.find({}).exec()
+        res.status(200).json({fridges})
+    } catch(err){
+        console.log(err, "from index fridges comments controller");
+        res.json(err);
+    }
 }
