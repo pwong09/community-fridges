@@ -43,3 +43,7 @@ export function updateFridge(id, stock) {
     .then(res => res.json());
 }
 
+export function getOne(id) {
+    console.log(id,"fridge id")
+    return
+}

@@ -5,8 +5,6 @@ import Loading from "../../components/Loader/Loader";
 
 export default function FridgeGallery({
     updateStock, 
-    handleNewComment, 
-    removeComment, 
     fridges, 
     removeFridge, 
     user, 
@@ -21,8 +19,6 @@ export default function FridgeGallery({
             removeFridge={removeFridge}
             user={user}
             updateStock={updateStock}
-            handleNewComment={handleNewComment}
-            removeComment={removeComment}
             />
         )
     })

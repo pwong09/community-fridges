@@ -1,12 +1,5 @@
 const mongoose = require('mongoose');
 
-const commentSchema = new mongoose.Schema({
-    comment: String,
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-    username: String
-},
-    { timestamps: true }
-)
 
 const fridgeSchema = new mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
@@ -25,7 +18,7 @@ const fridgeSchema = new mongoose.Schema({
     hasFreezer: Boolean,
     lat: Number,
     lng: Number,
-    comments: [commentSchema]
+
 },
     { timestamps: true }
 )

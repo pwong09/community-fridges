@@ -1,39 +1,16 @@
-import React, {useState, useEffect} from "react";
-import { Card, Icon, Image, Button, Header, Form, Comment } from 'semantic-ui-react'
+import React, { useState } from "react";
+import { Card, Icon, Image, Button, Header, Form } from 'semantic-ui-react'
 
 export default function FridgeCard({
     updateStock, 
     fridge, 
     removeFridge, 
     user, 
-    handleNewComment, 
-    removeComment}) {
-    // console.log(fridge.comments, "comments if any")
+}) {
+
     const [state, setState] = useState({
         isStocked: false,
     });
-    const [comments, setComments] = useState({
-        comment: ''
-    });
-
-
-    const commentsList = fridge.comments.map((comment, index) => {
-        // console.log(typeof(comment.createdAt))
-        let commentHandler = null;
-        if (user) {
-            commentHandler = comment.user === user._id ? () => removeComment(comment._id) : null;
-        }
-        return (
-            <Comment key={index}>
-                <Comment.Content>
-                    {comment.createdAt.slice(0, 10)} <strong>{comment.username} said:</strong> {comment.comment}
-                {user && user._id === comment.user ?   
-                    <Icon name='trash' onClick={commentHandler} />
-                : null }  
-                </Comment.Content>
-            </Comment>
-        )
-    })
 
     const handleCheck = (e) => { 
         // console.log(e.target.checked, 'e.target.checked')
@@ -55,21 +32,9 @@ export default function FridgeCard({
     }
     
 
-    const handleChange = (e) => {
-        // console.log(e.target.value, 'handleChange')
-        setComments({
-            ...comments,
-            [e.target.name]: e.target.value
-        })
-    }
 
-    const handleSubmit = (e) => {
-        console.log('I am submitting!')
-        handleNewComment(fridge._id, comments);
-        // console.log(comment);
-    }
     return (
-        <Card>
+        <Card id={fridge.name}>
             {user && user._id === fridge.user ? 
             <Card.Header textAlign='right'>
                     <Icon name='trash' onClick={clickHandler} />
@@ -131,24 +96,6 @@ export default function FridgeCard({
                 <Button as='a' href={fridge.website} target="_blank" basic color="blue">Learn More</Button>
                 }
             </Card.Content>
-            <Card.Content>
-                <Header as='h5'>Fridge status updates:</Header>
-                {commentsList.length > 0 ? commentsList : "If you're logged in you can add an update!"}
-            </Card.Content>
-            {user ? 
-            <Card.Content>
-                <Form onSubmit={handleSubmit}>
-                    <Form.TextArea 
-                        type="text"
-                        name="comment"
-                        placeholder="let us know what's going on at this fridge!"
-                        value={state.comment}
-                        onChange={handleChange}
-                    />
-                    <Button type="submit">Submit</Button>
-                </Form>
-            </Card.Content>
-            : "" }
         </Card>
     )
 }

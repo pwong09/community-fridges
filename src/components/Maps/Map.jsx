@@ -21,6 +21,7 @@ export default function Map({ fridges, center, locationError }) {
             lng={fridge.lng}
             text={fridge.name}
             key={index}
+            id={fridge.name}
             />
         )
     })
