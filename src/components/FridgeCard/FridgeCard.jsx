@@ -16,6 +16,7 @@ export default function FridgeCard({
         comment: ''
     });
 
+
     const commentsList = fridge.comments.map((comment, index) => {
         // console.log(typeof(comment.createdAt))
         let commentHandler = null;
@@ -48,7 +49,6 @@ export default function FridgeCard({
         updateStock(fridge._id, value)
     }
 
-    // console.log(fridge, 'FridgeCard')
     let clickHandler = null;
     if (user) {
         clickHandler = fridge.user === user._id ? () => removeFridge(fridge._id) : null;

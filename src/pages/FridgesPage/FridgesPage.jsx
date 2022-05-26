@@ -28,20 +28,6 @@ export default function FridgesPage({user, location, locationError}) {
         getFridges();
     }, [])
 
-    // useEffect(() => {
-    //     const getComments = async () => {
-    //         try {
-    //             const data = await commentsAPI.getAll();
-    //             setComments([...data.comments]);
-    //             setLoading(false);
-    //         } catch(err) {
-    //             console.log(err, 'getting comments to re-render')
-    //             setError(err);
-    //         }
-    //     }
-    //     getComments();
-    // }, [setComments])
-
     const removeFridge = async (fridgeId) => {
         try {
             const data = await fridgesAPI.removeFridge(fridgeId);

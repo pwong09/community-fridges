@@ -6,7 +6,6 @@ import LocationPin from "./LocationPin";
 
 export default function Map({ fridges, center, locationError }) {
     const apiKey = process.env.REACT_APP_MAPS_API
-    const geoKey = process.env.REACT_APP_GEO_API
     const defaultProps = {
         center: { //new york city
             lat: 40.730610,
@@ -14,15 +13,6 @@ export default function Map({ fridges, center, locationError }) {
         },
         zoom: 12
     }
-    //https://www.googleapis.com/geolocation/v1/geolocate?key=YOUR_API_KEY
-
-    const getYourLocation = async () => {
-        const res = await fetch(`https://www.googleapis.com/geolocation/v1/geolocate?key=${geoKey}`)
-        const data = await res.json()
-        console.log(data)
-    }
-
-    // getYourLocation();
 
     const locations = fridges.map((fridge, index) => {
         return (
@@ -43,7 +33,7 @@ export default function Map({ fridges, center, locationError }) {
             <GoogleMapReact
                 // object that holds API key
                 bootstrapURLKeys={{ key: apiKey }}
-                defaultCenter={center}
+                center={center}
                 defaultZoom={defaultProps.zoom}
             >
             {locations}
