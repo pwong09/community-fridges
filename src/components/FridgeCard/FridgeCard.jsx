@@ -1,8 +1,14 @@
 import React, {useState} from "react";
-import { Card, Icon, Image, Button, Header, Form, Comment } from 'semantic-ui-react'
+import { Card, Icon, Image, Button, Header, Form, Comment, Dropdown } from 'semantic-ui-react'
 
 
-export default function FridgeCard({updateStock, fridge, removeFridge, user, handleNewComment}) {
+export default function FridgeCard({
+    updateStock, 
+    fridge, 
+    removeFridge, 
+    user, 
+    handleNewComment, 
+    removeComment}) {
     // console.log(fridge.comments, "comments if any")
     const [state, setState] = useState({
         isStocked: false,
@@ -13,10 +19,17 @@ export default function FridgeCard({updateStock, fridge, removeFridge, user, han
 
     const commentsList = fridge.comments.map((comment, index) => {
         console.log(typeof(comment.createdAt))
+        let commentHandler = null;
+        if (user) {
+            commentHandler = comment.user === user._id ? () => removeComment(comment._id) : null;
+        }
         return (
             <Comment key={index}>
                 <Comment.Content>
                     {comment.createdAt.slice(0, 10)} <strong>{comment.username} said:</strong> {comment.comment}
+                {user && user._id === comment.user ?   
+                    <Icon name='trash' onClick={commentHandler} />
+                : null }  
                 </Comment.Content>
             </Comment>
         )
@@ -41,6 +54,7 @@ export default function FridgeCard({updateStock, fridge, removeFridge, user, han
     if (user) {
         clickHandler = fridge.user === user._id ? () => removeFridge(fridge._id) : null;
     }
+    
 
     const handleChange = (e) => {
         // console.log(e.target.value, 'handleChange')

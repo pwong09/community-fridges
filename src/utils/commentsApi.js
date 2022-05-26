@@ -16,14 +16,19 @@ export function addComment(fridgeId, comment) {
     }).then(res => res.json());
 }
 
-export function create(fridge) {
-    // console.log(fridge.values(), "fridge.values from fridgeApi looks like this")
-    return fetch(BASE_URL, {
-        method: 'POST',
-        body: fridge,
+export function removeComment(id) {
+    return fetch(`${BASE_URL}fridges/${id}/comments`, {
+        method: 'DELETE',
         headers: {
             'Authorization': 'Bearer ' + tokenService.getToken()
-    }
-    
-    }).then(res => res.json());
+        }
+    })
+    .then(res => res.json());
+}
+
+export function getAll(id) {
+    return fetch(`${BASE_URL}/${id}/comments`, {
+        method: 'GET'
+    })
+    .then(res => res.json());
 }

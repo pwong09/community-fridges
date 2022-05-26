@@ -9,6 +9,7 @@ import * as commentsAPI from "../../utils/commentsApi";
 
 export default function FridgesPage({user}) {
     const [fridges, setFridges] = useState([]);
+    const [comments, setComments] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
 
@@ -21,7 +22,7 @@ export default function FridgesPage({user}) {
             console.log(err, 'getting fridges to render');
             setError(err);
         }
-    }    
+    }  
 
     useEffect(() => {
         getFridges();
@@ -48,13 +49,24 @@ export default function FridgesPage({user}) {
         }
     }
 
-    const handleNewComment = async (fridgeId, comment) => {
+    const handleNewComment = (fridgeId, comment) => {
         try {
-            const data = await commentsAPI.addComment(fridgeId, comment);
+            const data = commentsAPI.addComment(fridgeId, comment);
+            setComments([...comments, comment]);
             // some sort of rendering
-            getFridges();
         } catch(err) {
             console.log(err, "error from newComment");
+            setError(err);
+        }
+    }
+
+    const removeComment = async (commentId) => {
+        try {
+            const data = await commentsAPI.removeComment(commentId);
+            const commentsArray = await comments.filter(comment => comment._id !== commentId);
+            setComments([commentsArray])
+        } catch(err) {
+            console.log(err, "error for removeComment");
             setError(err);
         }
     }
@@ -92,6 +104,7 @@ export default function FridgesPage({user}) {
                         itemsPerRow={2}
                         updateStock={updateStock}
                         handleNewComment={handleNewComment}
+                        removeComment={removeComment}
                     />
                 </Grid.Column>
             </Grid.Row>
