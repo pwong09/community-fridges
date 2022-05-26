@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 const commentSchema = new mongoose.Schema({
     comment: String,
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User'} 
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+    username: String
 },
     { timestamps: true }
 )

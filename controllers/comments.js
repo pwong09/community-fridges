@@ -6,9 +6,10 @@ module.exports = {
 }
 
 function create(req, res){
-
+    console.log(req.body, "req.body comment")
     Fridge.findById(req.params.id, function(err, fridge) {
         req.body.user = req.user._id
+        req.body.username = req.user.username
         fridge.comments.push(req.body)
         fridge.save(function(err) {
             console.log(err)

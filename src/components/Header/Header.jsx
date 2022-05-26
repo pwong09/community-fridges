@@ -11,7 +11,7 @@ export default function PageHeader({user, handleLogout}){
                 (
                 <>
                 <Header as='h2' floated='left' >
-                    <Link to={`/${user?.username}`}> {/*  optional chaining */}
+                    <Link to="/">
                         <Image avatar
                             src={user.photoUrl 
                             ? user.photoUrl 

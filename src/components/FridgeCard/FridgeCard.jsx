@@ -1,6 +1,5 @@
-import React, {useState, useEffect} from "react";
-import { Card, Icon, Image, Button, Header, Form } from 'semantic-ui-react'
-import {Link} from "react-router-dom"
+import React, {useState} from "react";
+import { Card, Icon, Image, Button, Header, Form, Comment } from 'semantic-ui-react'
 
 
 export default function FridgeCard({updateStock, fridge, removeFridge, user, handleNewComment}) {
@@ -11,6 +10,17 @@ export default function FridgeCard({updateStock, fridge, removeFridge, user, han
     const [comments, setComments] = useState({
         comment: ''
     });
+
+    const commentsList = fridge.comments.map((comment, index) => {
+        console.log(typeof(comment.createdAt))
+        return (
+            <Comment key={index}>
+                <Comment.Content>
+                    {comment.createdAt.slice(0, 10)} <strong>{comment.username} said:</strong> {comment.comment}
+                </Comment.Content>
+            </Comment>
+        )
+    })
 
     const handleCheck = (e) => { 
         // console.log(e.target.checked, 'e.target.checked')
@@ -26,10 +36,6 @@ export default function FridgeCard({updateStock, fridge, removeFridge, user, han
         updateStock(fridge._id, value)
     }
 
-    useEffect(() => {
-        console.log(state);
-    },[setState])
-
     // console.log(fridge, 'FridgeCard')
     let clickHandler = null;
     if (user) {
@@ -37,7 +43,7 @@ export default function FridgeCard({updateStock, fridge, removeFridge, user, han
     }
 
     const handleChange = (e) => {
-        console.log(e.target.value, 'handleChange')
+        // console.log(e.target.value, 'handleChange')
         setComments({
             ...comments,
             [e.target.name]: e.target.value
@@ -71,34 +77,65 @@ export default function FridgeCard({updateStock, fridge, removeFridge, user, han
                 <br />
                 Freezer: {fridge.hasFreezer ? 'Yes' : 'Nope'}
                 <br />
-                <Form onSubmit={handleCheck}>
-                <Form.Input
-                    type='checkbox'
-                    label='Stocked?'
-                    name='isStocked'
-                    value={state.isStocked}
-                    onClick={handleCheck}
-                />
-                </Form>
+                Stocked: {fridge.isStocked ? 'Yes' : 'Nope'}
+                {user ?
+                <>
+                    {/* this form toggles isStocked */}
+                    {fridge.isStocked  ? (
+                    <Form onSubmit={handleCheck}>
+                        <Form.Group inline>
+                        <label>Fridge is Empty? :(</label>
+                        <Form.Input 
+                            type='checkbox'
+                            name='isStocked'
+                            value={state.isStocked}
+                            onClick={handleCheck}
+                        />
+                        </Form.Group>
+                    </Form>
+                    ) : (
+                    <Form onSubmit={handleCheck}>
+                        <Form.Group inline>
+                            <label>Fridge is Stocked? :)</label>
+                        <Form.Input
+                            type='checkbox'
+                            name='isStocked'
+                            value={state.isStocked}
+                            onClick={handleCheck}
+                        />
+                        </Form.Group>
+                    </Form>
+                    )}
+                    </>
+                : "" }
                 </Card.Description>
             </Card.Content>
             <Card.Content extra>
                 {fridge.donationUrl === '' ? null : 
                 <Button as='a' href={fridge.donationUrl} target="_blank" basic color="green">Donate</Button>
                 }
-                <Button basic color="blue">More Info</Button>
+                {fridge.website === '' ? null : 
+                <Button as='a' href={fridge.website} target="_blank" basic color="blue">Learn More</Button>
+                }
             </Card.Content>
+            <Card.Content>
+                <Header as='h5'>Fridge status updates:</Header>
+                {commentsList.length > 0 ? commentsList : "If you're logged in you can add an update!"}
+            </Card.Content>
+            {user ? 
             <Card.Content>
                 <Form onSubmit={handleSubmit}>
                     <Form.TextArea 
                         type="text"
                         name="comment"
+                        placeholder="let us know what's going on at this fridge!"
                         value={state.comment}
                         onChange={handleChange}
                     />
                     <Button type="submit">Submit</Button>
                 </Form>
             </Card.Content>
+            : "" }
         </Card>
     )
 }

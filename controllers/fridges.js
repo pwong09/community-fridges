@@ -77,9 +77,16 @@ async function removeFridge(req, res) {
     }
 }
 
-function update(req, res) {
+async function update(req, res) {
     console.log(req.body, 'req.body')
-    // try {
-    //     const fridge = await Fridge.findOne()
-    // }
+    try {
+        const fridge = await Fridge.findOneAndUpdate({'_id': req.params.id}, req.body, {
+            new: true
+        })
+        console.log(fridge)
+        res.status(200).json({fridge})
+    } catch(err) {
+        console.log(err, "from update fridge function")
+        res.json(err)
+    }
 }

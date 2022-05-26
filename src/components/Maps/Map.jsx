@@ -12,7 +12,7 @@ export default function Map({ fridges }) {
             lat: 40.730610,
             lng: -73.935242
         },
-        zoom: 9
+        zoom: 12
     }
     //https://www.googleapis.com/geolocation/v1/geolocate?key=YOUR_API_KEY
 

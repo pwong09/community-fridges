@@ -1,10 +1,10 @@
 import { Icon } from '@iconify/react'
-import locationIcon from '@iconify/icons-mdi/map-marker'
+import "./LocationPin.css";
 
 export default function LocationPin ({ text }) {
     return (
         <div className="pin">
-        <Icon icon={locationIcon} className="pin-icon" />
+        <Icon icon="fa-solid:map-marker-alt" width="30" className="pin-icon" />
         <p className="pin-text">{text}</p>
         </div>
     )

@@ -40,8 +40,8 @@ export default function FridgesPage({user}) {
 
     const updateStock = async (fridgeId, state) => {
         try {
-            const data = await fridgesAPI.updateFridge(fridgeId, state)
-
+            const data = await fridgesAPI.updateFridge(fridgeId, state);
+            getFridges();
         } catch(err) {
             console.log(err, "error from updateStock")
             setError(err);
