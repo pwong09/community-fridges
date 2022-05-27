@@ -17,9 +17,13 @@ Third-Party APIs:
 Google Maps JavaScript API, Google Geocoding API, Geolocation API  
 
 ### Screenshots
+Visitor landing page  
 ![visitor homepage](./screenshots/visitor-homepage.png)
+Logged In User homepage  
 ![user homepage](./screenshots/user-homepage.png)
+Add a Fridge Form  
 ![add a fridge form](./screenshots/fridge-form.png)
+Logged In User's Fridge Card  
 ![fridge card](./screenshots/fridge-card-user.png)
 
 ### Next Steps
