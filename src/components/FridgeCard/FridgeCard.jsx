@@ -49,13 +49,16 @@ export default function FridgeCard({
                 <br />
                 {fridge.stateOrProvince}, {fridge.country}
                 <br/>
-                Fridge: {fridge.hasFridge ? 'Yes' : 'Nope'}
                 <br />
-                Pantry: {fridge.hasPantry ? 'Yes' : 'Nope'}
+                {fridge.hasFridge ? 'We have a fridge' : 'No fridge'}
                 <br />
-                Freezer: {fridge.hasFreezer ? 'Yes' : 'Nope'}
+                {fridge.hasPantry ? 'We have pantry space' : 'No pantry'}
                 <br />
-                Stocked: {fridge.isStocked ? 'Yes' : 'Nope'}
+                {fridge.hasFreezer ? 'We have freezer space' : 'No freezer'}
+                <br />
+                {fridge.isStocked ? 'Stocked! :)' : 'Not stocked. :('}
+                <br />
+                <br />
                 {user ?
                 <>
                     {/* this form toggles isStocked */}
