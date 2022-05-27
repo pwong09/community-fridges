@@ -95,8 +95,8 @@ export default function FridgeCard({
                 {fridge.donationUrl === '' ? null : 
                 <Button as='a' href={fridge.donationUrl} target="_blank" basic color="green">Donate</Button>
                 }
-                {fridge.website === '' ? null : 
-                <Button as='a' href={fridge.website} target="_blank" basic color="blue">Learn More</Button>
+                {fridge.websiteUrl === '' ? null : 
+                <Button as='a' href={fridge.websiteUrl} target="_blank" basic color="blue">Learn More</Button>
                 }
             </Card.Content>
         </Card>
