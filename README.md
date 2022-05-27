@@ -8,7 +8,6 @@ My community fridges app is for community fridge organizers and volunteers to co
 ### Technologies Used
 - Express
 - JavaScript
-- Google-React-Map
 - MongoDB/Mongoose
 - Node.js
 - React
