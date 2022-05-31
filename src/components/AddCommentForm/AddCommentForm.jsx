@@ -15,9 +15,9 @@ export default function AddComment({user, handleAddComment, fridge}) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(state)
+        // console.log(state)
         handleAddComment(fridge._id, state);
-        console.log('submit clicked!');
+        // console.log('submit clicked!');
         setState({comment: ''})
     }
 

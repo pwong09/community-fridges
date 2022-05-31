@@ -25,7 +25,7 @@ export default function FridgeCard({
     }
 
     const handleCheckSubmit = (value) => {
-        console.log(value, 'handle check submit')
+        // console.log(value, 'handle check submit')
         updateStock(fridge._id, value)
     }
 

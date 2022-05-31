@@ -36,11 +36,7 @@ export default function AddFridgeForm(props) {
         // console.log(data.value);
         // console.log(typeof(data.value))
         let value;
-        if (data.value === 'false') {
-            value = true
-        } else {
-            value = false
-        }
+        data.value === 'false' ? value = true : value = false;
         const name = data.name;
         // console.log(value);
         // console.log(name);
@@ -57,7 +53,7 @@ export default function AddFridgeForm(props) {
                 const formData = new FormData();
                 formData.append('photo', selectedFile);
                 for (let fieldName in state) {
-                    console.log('fieldname log', fieldName, state[fieldName]);
+                    // console.log('fieldname log', fieldName, state[fieldName]);
                     formData.append(fieldName, state[fieldName]);
                 }
                 props.handleAddFridge(formData);

@@ -18,7 +18,7 @@ export default function FridgesPage({user, location, locationError}) {
     const getFridges = async () => {
         try {
             const data = await fridgesAPI.getAll();
-            console.log(data.fridges)
+            // console.log(data.fridges)
             setFridges([...data.fridges]);
             setLoading(false);
         } catch(err) {
@@ -51,7 +51,7 @@ export default function FridgesPage({user, location, locationError}) {
     }
 
     const updateStock = async (fridgeId, state) => {
-        console.log(state, "updateStock state")
+        // console.log(state, "updateStock state")
         try {
             const data = await fridgesAPI.updateFridge(fridgeId, state);
             setStock(state.isStocked);
@@ -71,7 +71,6 @@ export default function FridgesPage({user, location, locationError}) {
     }
 
     const handleDeleteComment = async (fridge, commentId) => {
-        console.log(fridge.comments) // undefined
         try {
             const data = await commentsAPI.deleteComment(commentId);
             const commentArray = await fridge.comments.filter(comment => comment._id !== commentId);
