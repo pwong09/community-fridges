@@ -1,5 +1,5 @@
 import React from "react";
-import { Comment, Button, Icon } from 'semantic-ui-react';
+import { Comment, Icon } from 'semantic-ui-react';
 import AddCommentForm from "../../components/AddCommentForm/AddCommentForm";
 
 export default function CommentComponent({user, fridge, handleAddComment, handleDeleteComment}) {
@@ -28,6 +28,7 @@ export default function CommentComponent({user, fridge, handleAddComment, handle
         <AddCommentForm
             handleAddComment={handleAddComment}
             fridge={fridge}
+            user={user}
         />
         </Comment.Group>
     )

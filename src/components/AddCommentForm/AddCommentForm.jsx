@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { Button, Form } from 'semantic-ui-react';
 
-export default function AddComment({handleAddComment, fridge}) {
+export default function AddComment({user, handleAddComment, fridge}) {
     const [state, setState] = useState({
         comment: ''
     });
@@ -22,6 +22,8 @@ export default function AddComment({handleAddComment, fridge}) {
     }
 
     return (
+        <>
+        {user ? 
         <Form onSubmit={handleSubmit}>
             <Form.Input
                 type="text"
@@ -31,10 +33,12 @@ export default function AddComment({handleAddComment, fridge}) {
                 required
             />
             <Button 
-                content='Add Reply' 
+                content='Comment' 
                 primary 
                 type="submit"
             />
-    </Form>
+        </Form>
+        : ""}
+    </>
     )
 }
