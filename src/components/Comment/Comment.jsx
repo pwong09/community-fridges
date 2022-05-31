@@ -16,7 +16,9 @@ export default function CommentComponent({user, fridge, handleAddComment, handle
                 <Comment.Content>
                     {comment.createdAt.slice(0,10)} <strong>{comment.username}</strong> said: 
                     {comment.comment}
+                    {user && user._id === comment.user ? 
                     <Icon name='trash' onClick={clickHandler} />
+                    : ""}
                 </Comment.Content>
         </Comment>
         )
