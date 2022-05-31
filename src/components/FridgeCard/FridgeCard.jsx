@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Card, Icon, Image, Button, Header, Form } from 'semantic-ui-react'
+import Comment from "../../components/Comment/Comment";
 
 export default function FridgeCard({
     updateStock, 
@@ -99,6 +100,7 @@ export default function FridgeCard({
                 <Button as='a' href={fridge.websiteUrl} target="_blank" basic color="blue">Learn More</Button>
                 }
             </Card.Content>
+            <Comment fridge={fridge} />
         </Card>
     )
 }
