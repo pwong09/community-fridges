@@ -37,7 +37,7 @@ export default function FridgeCard({
             </Card.Header>
             : ""
             }
-            <Image size='tiny' src={fridge.imageUrl} ui={false} />
+            <Image size='mini' src={fridge.imageUrl} ui={false} />
             <Card.Content>
                 <Card.Description>
                 <Header>{fridge.name}</Header>
