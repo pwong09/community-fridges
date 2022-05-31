@@ -15,18 +15,11 @@ export default function FridgeCard({
         isStocked: false,
     });
 
-    const handleCheck = (e) => { 
-        // console.log(e.target.checked, 'e.target.checked')
-        // console.log(typeof(e.target.checked))
-        setState({
-            [e.target.name]: e.target.checked
-        });
-        handleCheckSubmit({[e.target.name]: e.target.checked});
-    }
+    const handleSelect = (e, value ) => setState({ [value.name]: value.value })
 
-    const handleCheckSubmit = (value) => {
+    const handleSubmit = (value) => {
         // console.log(value, 'handle check submit')
-        updateStock(fridge._id, value)
+        updateStock(fridge._id, state)
     }
 
     let clickHandler = null;
@@ -65,31 +58,18 @@ export default function FridgeCard({
                 {user ?
                 <>
                     {/* this form toggles isStocked */}
-                    {fridge.isStocked  ? (
-                    <Form onSubmit={handleCheck}>
-                        <Form.Group inline>
-                        <label>Fridge is Empty? :(</label>
-                        <Form.Input 
-                            type='checkbox'
+                    Is the fridge stocked?
+                    <Form onSubmit={handleSubmit}>
+                        <Form.Select
                             name='isStocked'
-                            value={state.isStocked}
-                            onClick={handleCheck}
+                            options={[
+                                {key: 'Y', text: 'Yes', value: 'true'},
+                                {key: 'N', text: 'No', value: 'false'}
+                            ]}
+                            onChange={handleSelect}
                         />
-                        </Form.Group>
+                        <Button type="submit">Submit</Button>
                     </Form>
-                    ) : (
-                    <Form onSubmit={handleCheck}>
-                        <Form.Group inline>
-                            <label>Fridge is Stocked? :)</label>
-                        <Form.Input
-                            type='checkbox'
-                            name='isStocked'
-                            value={state.isStocked}
-                            onClick={handleCheck}
-                        />
-                        </Form.Group>
-                    </Form>
-                    )}
                     </>
                 : "" }
                 </Card.Description>
