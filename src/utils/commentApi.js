@@ -15,3 +15,15 @@ export function create(fridgeId, comment) {
         throw new Error("something's wrong at create commentApi!");
     })
 }
+
+export function deleteComment(id) {
+    return fetch(`${BASE_URL}comments/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': 'Bearer ' + tokenService.getToken()
+        }
+    }).then((res) => {
+        if (res.ok) return res.json();
+        throw new Error("something's wrong at removeFridge fridgeApi!");
+    })
+}

@@ -1,5 +1,5 @@
 import React from "react";
-import { Comment, Button } from 'semantic-ui-react';
+import { Comment, Button, Icon } from 'semantic-ui-react';
 import AddCommentForm from "../../components/AddCommentForm/AddCommentForm";
 
 export default function CommentComponent({user, fridge, handleAddComment, handleDeleteComment}) {
@@ -16,7 +16,7 @@ export default function CommentComponent({user, fridge, handleAddComment, handle
                 <Comment.Content>
                     {comment.createdAt.slice(0,10)} <strong>{comment.username}</strong> said: 
                     {comment.comment}
-                    <Button onClick={clickHandler}>X</Button>
+                    <Icon name='trash' onClick={clickHandler} />
                 </Comment.Content>
         </Comment>
         )
