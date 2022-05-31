@@ -10,15 +10,19 @@ export function create(fridge) {
         headers: {
             'Authorization': 'Bearer ' + tokenService.getToken()
     }
-    
-    }).then(res => res.json());
+    }).then((res) => {
+        if (res.ok) return res.json();
+        throw new Error("something's wrong at create fridgeApi!");
+    })
 }
 
 export function getAll() {
     return fetch(BASE_URL, {
         method: 'GET'
+    }).then((res) => {
+        if (res.ok) return res.json();
+        throw new Error("something's wrong at getAll fridgeApi!");
     })
-    .then(res => res.json());
 }
 
 export function removeFridge(id) {
@@ -27,8 +31,10 @@ export function removeFridge(id) {
         headers: {
             'Authorization': 'Bearer ' + tokenService.getToken()
         }
+    }).then((res) => {
+        if (res.ok) return res.json();
+        throw new Error("something's wrong at removeFridge fridgeApi!");
     })
-    .then(res => res.json());
 }
 
 export function updateFridge(id, stock) {
@@ -39,11 +45,21 @@ export function updateFridge(id, stock) {
             'Authorization': 'Bearer ' + tokenService.getToken(),
             "Content-Type": "application/json"
         }
+    }).then((res) => {
+        if (res.ok) return res.json();
+        throw new Error("something's wrong at updateFridge fridgeApi");
     })
-    .then(res => res.json());
 }
 
 export function getOne(id) {
     console.log(id,"fridge id")
-    return
+    return fetch(`${BASE_URL}${id}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + tokenService.getToken()
+        }
+    }).then((res) => {
+        if (res.ok) return res.json();
+        throw new Error("something's wrong at getOne fridgeApi!");
+    })
 }

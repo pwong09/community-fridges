@@ -8,7 +8,8 @@ module.exports = {
     create,
     index,
     delete: removeFridge,
-    update
+    update,
+    show
 }
 
 async function create(req, res){
@@ -70,7 +71,7 @@ async function index(req, res){
 async function removeFridge(req, res) {
     try {
         const fridge = await Fridge.findByIdAndDelete(req.params.id)
-        res.status(200).json({fridge})
+        res.status(202).json({fridge})
     } catch(err) {
         console.log(err, "from removeFridge controller")
         res.json(err);
@@ -84,9 +85,20 @@ async function update(req, res) {
             new: true
         })
         console.log(fridge)
-        res.status(200).json({fridge})
+        res.status(202).json({fridge})
     } catch(err) {
         console.log(err, "from update fridge function")
         res.json(err)
     }
+}
+
+async function show(req, res) {
+    try {
+        const fridge = await Fridge.findById(req.params.id);
+        if (!fridge) return res.status(404).json({err: "Fridge doesn't exist!"});
+        res.status(200).json({fridge})
+    } catch(err){
+        console.log(err, "from show one fridge function")
+        res.json(err)
+    } 
 }

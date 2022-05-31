@@ -9,6 +9,7 @@ router.post("/", upload.single("photo"), fridgesCtrl.create);
 router.get("/", fridgesCtrl.index);
 router.delete("/:id", fridgesCtrl.delete);
 router.put("/:id", fridgesCtrl.update);
+router.get("/:id", fridgesCtrl.show);
 
 
 

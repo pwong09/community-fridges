@@ -1,5 +1,12 @@
 const mongoose = require('mongoose');
 
+const commentSchema = new mongoose.Schema({
+    username: String,
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+    comment: String,
+    },  { 
+    timestamps: true }
+)
 
 const fridgeSchema = new mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
@@ -18,9 +25,9 @@ const fridgeSchema = new mongoose.Schema({
     hasFreezer: Boolean,
     lat: Number,
     lng: Number,
-
-},
-    { timestamps: true }
+    comments: [commentSchema],
+    }, { 
+    timestamps: true }
 )
 
 module.exports = mongoose.model('Fridge', fridgeSchema);
