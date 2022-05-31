@@ -2,7 +2,7 @@ import tokenService from "./tokenService";
 const BASE_URL = '/api/'
 
 export function create(fridgeId, comment) {
-    console.log(comment, "commentsApi comment")
+    // console.log(comment, "commentsApi comment")
     return fetch(`${BASE_URL}fridges/${fridgeId}/comments`, {
         method: 'POST',
         body: JSON.stringify(comment),

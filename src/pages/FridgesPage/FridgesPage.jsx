@@ -33,11 +33,7 @@ export default function FridgesPage({user, location, locationError}) {
 
     useEffect(() => {
         getFridges();
-    }, [comments])
-
-    useEffect(() => {
-        getFridges();
-    }, [stock])
+    }, [comments, stock])
 
     const removeFridge = async (fridgeId) => {
         try {
