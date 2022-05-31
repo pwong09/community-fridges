@@ -63,3 +63,16 @@ export function getOne(id) {
         throw new Error("something's wrong at getOne fridgeApi!");
     })
 }
+
+export function getSome(search) {
+    console.log(search, "search term");
+    return fetch(`${BASE_URL}filter/${search}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + tokenService.getToken()
+        }
+    }).then((res) => {
+        if (res.ok) return res.json();
+        throw new Error("something's wrong at getSome fridgeApi!");
+    })
+}

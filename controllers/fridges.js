@@ -9,7 +9,8 @@ module.exports = {
     index,
     delete: removeFridge,
     update,
-    show
+    show,
+    filter: someFridges
 }
 
 async function create(req, res){
@@ -101,4 +102,15 @@ async function show(req, res) {
         console.log(err, "from show one fridge function")
         res.json(err)
     } 
+}
+
+async function someFridges(req, res) {
+    try {
+        const fridges = await Fridge.find({"stateOrProvince": req.params.id});
+        if (!fridges) return res.status(404).json({err: "No matching fridges!"});
+        res.status(200).json({fridges});
+    } catch(err) {
+        console.log(err, "from filtering for someFridges function")
+        res.json(err)
+    }
 }
