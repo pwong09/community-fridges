@@ -31,4 +31,5 @@ Logged In User's Fridge Card
 - Automatically toggle the Stocked status to false after a set time
 - Provide a user profile page - if useful
 - Provide a show details fridge page - if useful
-- Filter fridges by state / province 
+- ~~AAU, I can add comments to a fridge~~ copmleted on 5/30/2022
+- ~~Filter fridges by state / province~~ completed on 5/31/2022

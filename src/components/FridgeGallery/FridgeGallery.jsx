@@ -13,6 +13,8 @@ export default function FridgeGallery({
     handleDeleteComment, 
     itemsPerRow}) {
 
+    if (fridges.length === 0) return (<h3>Add fridges to this area!</h3>)
+
     const list = fridges.map((fridge, index) => {
         return (
             <FridgeCard 

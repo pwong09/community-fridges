@@ -15,7 +15,7 @@ export default function FridgesPage({user, location, locationError}) {
     const [error, setError] = useState('');
     const [comments, setComments] = useState([]);
     const [stock, setStock] = useState(false);
-    const [search, setSearch] = useState([]);
+    const [search, setSearch] = useState('');
 
     const getFridges = async () => {
         try {
@@ -79,12 +79,30 @@ export default function FridgesPage({user, location, locationError}) {
         }
     }
 
+    const getSomeFridges = async () => {
+        if (search.length > 0) {
+            try {
+                const data = await fridgesAPI.getSome(search);
+                // console.log(data.fridges)
+                setFridges([...data.fridges]);
+            } catch(err) {
+                console.log(err, 'getting fridges to render');
+                setError(err);
+            }
+        }
+    }  
+
     const handleSearch = async (s) => {
-        console.log(s) // returns object {search: 'whatever we typed in'}
-        const fridgeArray = fridges.filter(fridge => fridge.stateOrProvince === search)
-        console.log(fridgeArray)
-        setSearch(fridgeArray);
+        // console.log(s) // returns the state or province
+        // console.log(typeof(s))
+        const fridgeArray = fridges.filter(fridge => fridge.stateOrProvince === s)
+        console.log(fridgeArray);
+        setSearch(s);
     }
+
+    useEffect(() => {
+        getSomeFridges();
+    }, [search])
 
     if (error) {
         return (
