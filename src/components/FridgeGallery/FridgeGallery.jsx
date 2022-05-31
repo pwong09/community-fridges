@@ -8,7 +8,8 @@ export default function FridgeGallery({
     fridges, 
     removeFridge, 
     user, 
-    loading, 
+    loading,
+    handleAddComment, 
     itemsPerRow}) {
 
     const list = fridges.map((fridge, index) => {
@@ -19,6 +20,7 @@ export default function FridgeGallery({
             removeFridge={removeFridge}
             user={user}
             updateStock={updateStock}
+            handleAddComment={handleAddComment}
             />
         )
     })

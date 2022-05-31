@@ -12,6 +12,7 @@ async function create(req, res) {
             user: req.user._id,
             comment: req.body.comment
         });
+        console.log(fridge);
         await fridge.save();
         res.status(201).json({fridge})
     } catch(err){

@@ -7,6 +7,7 @@ export default function FridgeCard({
     fridge, 
     removeFridge, 
     user, 
+    handleAddComment
 }) {
 
     const [state, setState] = useState({
@@ -100,7 +101,10 @@ export default function FridgeCard({
                 <Button as='a' href={fridge.websiteUrl} target="_blank" basic color="blue">Learn More</Button>
                 }
             </Card.Content>
-            <Comment fridge={fridge} />
+            <Comment 
+                fridge={fridge}
+                handleAddComment={handleAddComment} 
+            />
         </Card>
     )
 }

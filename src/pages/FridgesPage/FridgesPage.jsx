@@ -5,6 +5,7 @@ import Loading from "../../components/Loader/Loader";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import Map from "../../components/Maps/Map";
 import * as fridgesAPI from "../../utils/fridgeApi";
+import * as commentsAPI from "../../utils/commentApi";
 
 
 export default function FridgesPage({user, location, locationError}) {
@@ -48,6 +49,15 @@ export default function FridgesPage({user, location, locationError}) {
         }
     }
 
+    const handleAddComment = async (fridgeId, comment) => {
+        try {
+            const data = await commentsAPI.create(fridgeId, comment);
+        } catch(err) {
+            console.log(err, 'from handleAddComment');
+            setError(err);
+        }
+    }
+
     if (error) {
         return (
             <>
@@ -81,6 +91,7 @@ export default function FridgesPage({user, location, locationError}) {
                         loading={loading}
                         itemsPerRow={1}
                         updateStock={updateStock}
+                        handleAddComment={handleAddComment}
                     />
             </Grid.Row>
         </Grid>
