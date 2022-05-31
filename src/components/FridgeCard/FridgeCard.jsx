@@ -7,7 +7,8 @@ export default function FridgeCard({
     fridge, 
     removeFridge, 
     user, 
-    handleAddComment
+    handleAddComment,
+    handleDeleteComment
 }) {
 
     const [state, setState] = useState({
@@ -102,8 +103,10 @@ export default function FridgeCard({
                 }
             </Card.Content>
             <Comment 
+                user={user}
                 fridge={fridge}
-                handleAddComment={handleAddComment} 
+                handleAddComment={handleAddComment}
+                handleDeleteComment={handleDeleteComment}
             />
         </Card>
     )

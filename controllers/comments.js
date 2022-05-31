@@ -1,7 +1,8 @@
 const Fridge = require("../models/fridge");
 
 module.exports = {
-    create
+    create,
+    delete: removeComment
 }
 
 async function create(req, res) {
@@ -17,6 +18,20 @@ async function create(req, res) {
         await fridge.save();
         res.status(201).json({fridge})
     } catch(err){
+        res.status(400).json({err})
+    }
+}
+
+async function removeComment(req, res) {
+    console.log(req.params.id)
+    try {
+        const fridge = await Fridge.findOne({"comments._id": req.params.id});
+        if (!fridge.user.equals(req.user._id)) return res.status(401).json('Unauthorized action')
+        const comment = await fridge.comments.id(req.params.id);
+        await comment.remove();
+        await fridge.save();
+        res.status(202).json({fridge})
+    } catch(err) {
         res.status(400).json({err})
     }
 }

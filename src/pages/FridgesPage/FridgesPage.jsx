@@ -18,6 +18,7 @@ export default function FridgesPage({user, location, locationError}) {
     const getFridges = async () => {
         try {
             const data = await fridgesAPI.getAll();
+            console.log(data.fridges)
             setFridges([...data.fridges]);
             setLoading(false);
         } catch(err) {
@@ -59,30 +60,28 @@ export default function FridgesPage({user, location, locationError}) {
             setError(err);
         }
     }
-    // let id;
     const handleAddComment = async (fridgeId, comment) => {
-        // id = fridgeId;
-        // console.log(id, "id from handleAddComment")
         try {
             const data = await commentsAPI.create(fridgeId, comment);
             setComments([...comments, comment]);
-            // getFridge(fridgeId);
-            //getFridges();
         } catch(err) {
             console.log(err, 'from handleAddComment');
             setError(err);
         }
     }
 
-    // async function getFridge() {
-    //     try {
-    //         const data = await fridgesAPI.getOne(id);
-    //         setFridges([...fridges, data.fridge]);
-    //     } catch(err) {
-    //         console.log(err, 'from getFridge function');
-    //         setError(err);
-    //     }
-    // }
+    const handleDeleteComment = async (fridge, commentId) => {
+        console.log(fridge.comments) // undefined
+        try {
+            const data = await commentsAPI.deleteComment(commentId);
+            const commentArray = await fridge.comments.filter(comment => comment._id !== commentId);
+            setComments(commentArray);
+        } catch(err) {
+            console.log(err, 'from handleDeleteComment');
+            setError(err);
+        }
+    }
+
 
     if (error) {
         return (
@@ -118,6 +117,7 @@ export default function FridgesPage({user, location, locationError}) {
                         itemsPerRow={1}
                         updateStock={updateStock}
                         handleAddComment={handleAddComment}
+                        handleDeleteComment={handleDeleteComment}
                     />
             </Grid.Row>
         </Grid>

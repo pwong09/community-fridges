@@ -18,6 +18,7 @@ export default function AddComment({handleAddComment, fridge}) {
         console.log(state)
         handleAddComment(fridge._id, state);
         console.log('submit clicked!');
+        setState({comment: ''})
     }
 
     return (
@@ -26,6 +27,7 @@ export default function AddComment({handleAddComment, fridge}) {
                 type="text"
                 name="comment"
                 onChange={handleChange}
+                value={state.comment}
                 required
             />
             <Button 

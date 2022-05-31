@@ -1,15 +1,22 @@
 import React from "react";
-import { Comment } from 'semantic-ui-react';
+import { Comment, Button } from 'semantic-ui-react';
 import AddCommentForm from "../../components/AddCommentForm/AddCommentForm";
 
-export default function CommentComponent({fridge, handleAddComment}) {
+export default function CommentComponent({user, fridge, handleAddComment, handleDeleteComment}) {
     //console.log(fridge)
     const list = fridge.comments.map((comment, index) => {
         
+        let clickHandler = null;
+        if (user) {
+            clickHandler = comment.user === user._id ? () => handleDeleteComment(fridge, comment._id) : null;
+        }
+
         return (
         <Comment key={index}>
                 <Comment.Content>
-                    {comment.username} said: {comment.comment}
+                    {comment.createdAt.slice(0,10)} <strong>{comment.username}</strong> said: 
+                    {comment.comment}
+                    <Button onClick={clickHandler}>X</Button>
                 </Comment.Content>
         </Comment>
         )
@@ -17,11 +24,6 @@ export default function CommentComponent({fridge, handleAddComment}) {
 
     return (
         <Comment.Group size="small">
-        <Comment>
-            <Comment.Content>
-                timestamp - username said: text
-            </Comment.Content>
-        </Comment>
         {list}
         <AddCommentForm
             handleAddComment={handleAddComment}
