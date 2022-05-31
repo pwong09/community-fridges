@@ -5,6 +5,7 @@ module.exports = {
 }
 
 async function create(req, res) {
+    console.log(req.body, "comment's req.body")
     try {
         const fridge = await Fridge.findById(req.params.id);
         fridge.comments.push({

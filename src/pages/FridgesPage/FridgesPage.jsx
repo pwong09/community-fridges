@@ -12,6 +12,8 @@ export default function FridgesPage({user, location, locationError}) {
     const [fridges, setFridges] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const [comments, setComments] = useState([]);
+    const [stock, setStock] = useState(false);
 
     const getFridges = async () => {
         try {
@@ -26,7 +28,15 @@ export default function FridgesPage({user, location, locationError}) {
 
     useEffect(() => {
         getFridges();
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        getFridges();
+    }, [comments])
+
+    useEffect(() => {
+        getFridges();
+    }, [stock])
 
     const removeFridge = async (fridgeId) => {
         try {
@@ -40,23 +50,39 @@ export default function FridgesPage({user, location, locationError}) {
     }
 
     const updateStock = async (fridgeId, state) => {
+        console.log(state, "updateStock state")
         try {
             const data = await fridgesAPI.updateFridge(fridgeId, state);
-            getFridges();
+            setStock(state.isStocked);
         } catch(err) {
             console.log(err, "error from updateStock")
             setError(err);
         }
     }
-
+    // let id;
     const handleAddComment = async (fridgeId, comment) => {
+        // id = fridgeId;
+        // console.log(id, "id from handleAddComment")
         try {
             const data = await commentsAPI.create(fridgeId, comment);
+            setComments([...comments, comment]);
+            // getFridge(fridgeId);
+            //getFridges();
         } catch(err) {
             console.log(err, 'from handleAddComment');
             setError(err);
         }
     }
+
+    // async function getFridge() {
+    //     try {
+    //         const data = await fridgesAPI.getOne(id);
+    //         setFridges([...fridges, data.fridge]);
+    //     } catch(err) {
+    //         console.log(err, 'from getFridge function');
+    //         setError(err);
+    //     }
+    // }
 
     if (error) {
         return (
