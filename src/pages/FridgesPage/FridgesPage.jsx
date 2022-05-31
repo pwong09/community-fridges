@@ -4,6 +4,7 @@ import FridgeGallery from "../../components/FridgeGallery/FridgeGallery";
 import Loading from "../../components/Loader/Loader";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import Map from "../../components/Maps/Map";
+import SearchBar from "../../components/SearchBar/SearchBar";
 import * as fridgesAPI from "../../utils/fridgeApi";
 import * as commentsAPI from "../../utils/commentApi";
 
@@ -14,6 +15,7 @@ export default function FridgesPage({user, location, locationError}) {
     const [error, setError] = useState('');
     const [comments, setComments] = useState([]);
     const [stock, setStock] = useState(false);
+    const [search, setSearch] = useState([]);
 
     const getFridges = async () => {
         try {
@@ -77,6 +79,12 @@ export default function FridgesPage({user, location, locationError}) {
         }
     }
 
+    const handleSearch = async (s) => {
+        console.log(s) // returns object {search: 'whatever we typed in'}
+        const fridgeArray = fridges.filter(fridge => fridge.stateOrProvince === search)
+        console.log(fridgeArray)
+        setSearch(fridgeArray);
+    }
 
     if (error) {
         return (
@@ -101,6 +109,11 @@ export default function FridgesPage({user, location, locationError}) {
                     fridges={fridges}
                     center={location}
                     locationError={locationError}
+                />
+            </Grid.Row>
+            <Grid.Row>
+                <SearchBar 
+                    handleSearch={handleSearch}
                 />
             </Grid.Row>
             <Grid.Row>
